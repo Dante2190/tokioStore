@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DepartamentosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedoresController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::resource('producto', ProductoController::class);
     Route::resource('proveedor', ProveedoresController::class);
     Route::resource('marca', MarcaController::class);
     Route::resource('categoria', CategoriasController::class);
