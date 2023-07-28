@@ -52,30 +52,77 @@
                             Crear Producto
                         </a>
                     </div>
-                    {{-- <div class="bg-white shadow-md rounded my-6">
+                     <div class="bg-white shadow-md rounded my-6">
                         <table class="w-full table-auto">
                             <thead>
                                 <tr class="bg-gray-200 text-gray-700">
                                     <th class="px-4 py-2">#</th>
                                     <th class="px-4 py-2">Nombre</th>
                                     <th class="px-4 py-2">Descripción</th>
+                                    <th class="px-4 py-2">Talla</th>
+                                    <th class="px-4 py-2">Categoria</th>
+                                    <th class="px-4 py-2">Departamento</th>
+                                    <th class="px-4 py-2">Marca</th>
+                                    <th class="px-4 py-2">Proveedor</th>
+                                    <th class="px-4 py-2">Precio</th>
+                                    <th class="px-4 py-2">Stock</th>
                                     <th class="px-4 py-2">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody class="text-gray-600 text-center">
                                 <!-- Aquí comienza el loop para mostrar los registros -->
-                                @foreach ($marcas as $marca)
+                                @foreach ($productos as $producto)
                                     <tr>
-                                        <td class="border px-4 py-2">{{ $marca->id }}</td>
-                                        <td class="border px-4 py-2">{{ $marca->nombre }}</td>
-                                        <td class="border px-4 py-2">{{ $marca->descripcion }}</td>
-                                        <td class="border px-4 py-2">
+                                        <td class="border px-4 py-2">{{ $producto->id }}</td>
+                                        <td class="border px-4 py-2">{{ $producto->nombre }}</td>
+                                        <td class="border px-4 py-2">{{ $producto->descripcion }}</td>
+                                        <td class="border px-4 py-2">{{ $producto->talla }}</td>
+                                        <input type="hidden"
+                                        value="{{ $categoria = DB::table('categorias')->select('categorias.id', 'categorias.nombre')->get() }}">
+                                        <td>
+                                            @foreach ($categoria as $cat)
+                                                @if ($cat->id == $producto->categoria_id)
+                                                    {{ $cat->nombre }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <input type="hidden"
+                                        value="{{ $departamento = DB::table('departamentos')->select('departamentos.id', 'departamentos.nombre')->get() }}">
+                                        <td>
+                                            @foreach ($departamento as $depa)
+                                                @if ($depa->id == $producto->departamento_id)
+                                                    {{ $depa->nombre }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <input type="hidden"
+                                        value="{{ $marca = DB::table('marcas')->select('marcas.id', 'marcas.nombre')->get() }}">
+                                        <td>
+                                            @foreach ($marca as $mar)
+                                                @if ($mar->id == $producto->marca_id)
+                                                    {{ $mar->nombre }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <input type="hidden"
+                                        value="{{ $proveedor = DB::table('proveedores')->select('proveedores.id', 'proveedores.nombre')->get() }}">
+                                        <td>
+                                            @foreach ($proveedor as $prov)
+                                                @if ($prov->id == $producto->proveedor_id)
+                                                    {{ $prov->nombre }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td class="border px-4 py-2">{{ $producto->precio }}</td>
+                                        <td class="border px-4 py-2">{{ $producto->stock }}</td>
+
+                                         <td class="border px-4 py-2">
                                             <a class="text-blue-600 hover:text-blue-800 mr-2"
-                                                href="{{ url('/marca/' . $marca->id . '/edit') }}">
+                                                href="{{ url('/producto/' . $producto->id . '/edit') }}">
                                                 Editar
                                             </a>
 
-                                            <form action="{{ url('/marca/' . $marca->id) }}" method="POST">
+                                            <form action="{{ url('/producto/' . $producto->id) }}" method="POST">
                                                 @csrf
                                                 {{ method_field('DELETE') }}
                                                 <input type="submit" class="text-red-600 hover:text-red-800"
@@ -90,8 +137,8 @@
                         </table>
                     </div>
                     <div class="my-6">
-                        {{ $marcas->links() }}
-                    </div> --}}
+                        {{ $productos->links() }}
+                    </div>
                 </div>
             </div>
         </div>

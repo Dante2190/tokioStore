@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DepartamentosController;
+use App\Http\Controllers\FotoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ProductoController;
@@ -28,6 +29,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::resource('foto', FotoController::class);
     Route::resource('producto', ProductoController::class);
     Route::resource('proveedor', ProveedoresController::class);
     Route::resource('marca', MarcaController::class);

@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('foto_productos', function (Blueprint $table) {
+        Schema::create('fotos', function (Blueprint $table) {
             $table->increments('id')->unsigned()->unique();
             $table->string('foto');
             $table->integer('producto_id')->unsigned();
             $table->timestamp('fecha_agregado')->useCurrent();
             $table->timestamps();
-
             $table->foreign('producto_id')->references('id')->on('productos');
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('foto_productos');
+        Schema::dropIfExists('fotos');
     }
 };

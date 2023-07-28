@@ -16,8 +16,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-
-        return view("productos.index");
+        $productos['productos']=Producto::paginate(10);
+        return view("productos.index", $productos);
     }
 
     /**
@@ -76,24 +76,36 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Producto $producto)
+    public function edit($id)
     {
-        //
+        $producto=Producto::findOrFail($id);
+        $categorias = Categorias::all();
+        $departamentos = Departamentos::all();
+        $marcas = Marca::all();
+        $proveedores = Proveedores::all();
+        return view('productos.edit', compact('categorias', 'departamentos', 'marcas', 'proveedores','producto'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, $id)
     {
-        //
+        $datosProducto=request()->except('_token','_method');
+        Producto::where('id','=',$id)->update($datosProducto);
+
+        return redirect('producto')->with('success','Producto Modificado Exitosamente!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Producto $producto)
+    public function destroy($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        $producto->delete();
+        return redirect('producto')->with('success', 'Producto eliminado correctamente.');
     }
+
+
 }

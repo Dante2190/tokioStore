@@ -95,7 +95,7 @@
 
                         <div class=" mt-4">
                             <x-primary-button class="w-full justify-center">
-                                {{ __('Crear Marca') }}
+                                {{ __('Crear producto') }}
                             </x-primary-button>
                         </div>
                     </form>
