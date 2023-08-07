@@ -15,7 +15,9 @@
                         <!-- Name -->
                         <div>
                             <x-input-label for="foto" :value="__('Foto')" />
-                            <x-text-input id="foto" class="block mt-1 w-full" type="file" accept="image/png,image/jpeg" name="foto" :value="old('foto')" required autofocus autocomplete="foto" />
+                            <x-text-input id="foto" class="block mt-1 w-full" type="file"
+                                accept="image/png,image/jpeg/jpg" name="foto" :value="old('foto')" required autofocus
+                                autocomplete="foto" />
                             <x-input-error :messages="$errors->get('foto')" class="mt-2" />
                         </div>
 

@@ -13,7 +13,9 @@ class FotoController extends Controller
      */
     public function index()
     {
-        return view("fotos.index");
+        $fotos = Foto::paginate(10);
+
+        return view("fotos.index", compact('fotos'));
     }
 
     /**
@@ -30,8 +32,8 @@ class FotoController extends Controller
      */
     public function store(Request $request)
     {
-         // Validar los datos del formulario de creación
-       /*   $request->validate([
+        // Validar los datos del formulario de creación
+        /*   $request->validate([
             'foto' => ['required', 'string', 'max:255'],
             'producto_id' => ['required', 'string', 'max:255'],
 
@@ -40,11 +42,12 @@ class FotoController extends Controller
 
         // Crear una nueva instancia del modelo Marca y asignar los valores del formulario
         $foto = new Foto();
-        if($request->hasFile('foto')){
-            $foto['foto']=$request->file('foto')->store('uploads','public');
+        if ($request->hasFile('foto')) {
+            $foto['foto'] = $request->file('foto')->store('uploads', 'public');
         }
         //$foto->foto = $request->input('foto');
-        $foto->producto_id = $request->input('producto_id');
+        // $foto->producto_id = $request->input('producto_id');
+        $foto->producto_id = $request->producto_id;
         //$foto->fecha_agregado =
         // Asigna aquí cualquier otro atributo necesario
 
@@ -59,9 +62,10 @@ class FotoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Foto $foto)
+    public function show($id)
     {
-        //
+        /* $datos['fotos'] = Foto::where('producto_id', '=', $id)->get();
+        return view('fotos.index', $datos, compact('id')); */
     }
 
     /**

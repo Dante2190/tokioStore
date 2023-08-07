@@ -12,6 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
+                    <?php
+                    use Illuminate\Support\Facades\Auth;
+                    $user = DB::table('users')->where('id',auth::id() )->first();
+                    if($user->role==2){ ?>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -36,6 +41,15 @@
                     <x-nav-link :href="route('foto.index')" :active="request()->routeIs('foto.index')">
                         {{ __('Fotos') }}
                     </x-nav-link>
+                    <?php }else if($user->role==1){ ?>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+                        {{ __('Home') }}
+                    </x-nav-link>
+                    <?php }?>
+
                 </div>
             </div>
 
