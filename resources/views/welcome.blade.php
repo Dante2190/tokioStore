@@ -829,11 +829,61 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 
 <body class="antialiased">
+    <div id="menu">
+        <i class="fas fa-bars" id="hamburger"></i>
+        <div id="dropdown-menu">
+            <a href="#">Opción 1</a>
+            <a href="#">Opción 2</a>
+            <a href="#">Opción 3</a>
+            @if (Route::has('login'))
+                <div>
+                    @auth
+                        <a href="{{ url('/dashboard') }}"
+                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
+                            in</a>
 
-    <div
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}"
+                                class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+        </div>
+        <input type="text" id="search" placeholder="Buscar...">
+        <div id="logo">TOKIO</div>
+        <i class="fas fa-user" id="user-icon"> </i>
+        <i class="fas fa-heart" id="like-icon"></i>
+        <i class="fas fa-shopping-cart" id="cart-icon"></i>
+    </div>
+
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide">
+                <img src="img/f4.png" alt="Imagen 1">
+            </div>
+            <div class="slide">
+                <img src="img/f2.jpg" alt="Imagen 2">
+            </div>
+            <div class="slide">
+                <img src="img/f4.png" alt="Imagen 3">
+            </div>
+        </div>
+        <div class="dots-container">
+            <div class="dot" onclick="changeSlide(0)"></div>
+            <div class="dot" onclick="changeSlide(1)"></div>
+            <div class="dot" onclick="changeSlide(2)"></div>
+        </div>
+    </div>
+    {{--  <div
         class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         @if (Route::has('login'))
             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
@@ -854,8 +904,175 @@
         @endif
 
 
-    </div>
+    </div> --}}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
 
+        #menu {
+            display: flex;
+            align-items: center;
+            color: #090909;
+            padding: 10px 20px;
+            justify-content: space-between;
+        }
+
+        #hamburger {
+            font-size: 24px;
+            margin-left: 15px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #search {
+            width: 110px;
+            margin-right: 20px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #logo {
+            font-size: 44px;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        #icons {
+            display: flex;
+            align-items: center;
+        }
+
+        #user-icon,
+        #like-icon,
+        #cart-icon {
+            font-size: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        #dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 50vh;
+            width: 250px;
+            background-color: #fefdfd;
+            padding: 10px;
+            z-index: 1;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        #dropdown-menu a {
+            display: block;
+            color: #0a0a0a;
+            text-decoration: none;
+            margin-top: 25px;
+            margin-left: 25px;
+            padding: 5px;
+
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 750px;
+            overflow: hidden;
+        }
+
+        .slider {
+            width: 100%;
+            height: 750px;
+            display: flex;
+        }
+
+        .slide {
+            flex: 0 0 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+        }
+
+        .dots-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #bbb;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #333;
+        }
+    </style>
+
+    <script>
+        const hamburgerIcon = document.getElementById('hamburger');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        hamburgerIcon.addEventListener('mouseover', () => {
+            dropdownMenu.style.display = 'block';
+        });
+
+        dropdownMenu.addEventListener('mouseleave', () => {
+            dropdownMenu.style.display = 'none';
+        });
+    </script>
+
+    <script>
+        // script.js
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.style.display = 'block';
+                } else {
+                    slide.style.display = 'none';
+                }
+            });
+
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function changeSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        showSlide(currentSlide);
+
+        // Intervalo para cambiar las imágenes automáticamente cada 3 segundos
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 3000);
+    </script>
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
