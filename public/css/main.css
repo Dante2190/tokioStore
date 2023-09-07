@@ -1,3 +1,429 @@
-body {
-    background: white;
+ body {
+     margin: 0;
+     padding: 0;
+     font-family: Arial, sans-serif;
+ }
+
+ #menu {
+    width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     color: #090909;
+     padding: 10px 20px;
+     position: fixed;
+     z-index: 3000;
+ }
+
+ #menu-left, #menu-center, #menu-right {
+    display: flex;
+    align-items: center;
 }
+
+ #hamburger {
+     font-size: 24px;
+     margin-left: 15px;
+     margin-right: 10px;
+     cursor: pointer;
+ }
+
+ #search {
+     width: 110px;
+     margin-right: 20px;
+     padding: 5px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+ }
+
+ #logo {
+     font-size: 44px;
+     font-weight: bold;
+     flex-grow: 1;
+     text-align: center;
+ }
+
+@media (max-width: 768px) {
+    #logo {
+        font-size: 20px; /* Tamaño del logo en pantallas medianas */
+    }
+}
+
+@media (max-width: 480px) {
+    #logo {
+        font-size: 15px; /* Tamaño del logo en pantallas pequeñas */
+    }
+}
+
+ #icons {
+     display: flex;
+     align-items: center;
+ }
+
+ #user-icon,
+ #like-icon,
+ #cart-icon {
+     font-size: 20px;
+     margin-left: 10px;
+     cursor: pointer;
+ }
+
+ @media (max-width: 768px) {
+    #menu-right {
+        display: none; /* Oculta los íconos en pantallas medianas */
+    }
+}
+
+ #dropdown-menu {
+     display: none;
+     flex-direction: column;
+     position: fixed;
+     top: 0;
+     left: 0;
+     height: 75vh;
+     width: 350px;
+     background-color: #fefdfd;
+     padding: 10px;
+     z-index: 1;
+     border-top-right-radius: 20px;
+     border-bottom-right-radius: 20px;
+ }
+
+ #dropdown-menu a {
+     display: block;
+     color: #0a0a0a;
+     text-decoration: none;
+     margin-top: 25px;
+     margin-left: 30px;
+     padding: 12px;
+
+ }
+
+ #iconos-menu-lateral{
+    display: flex;
+    flex-direction: column;
+    line-height: 20px;
+    margin-top: 15px;
+    margin-left: 25px;
+ }
+
+
+ /* .slider-container {
+     position: relative;
+     width: 100%;
+     height: 750px;
+     overflow: hidden;
+ }
+
+ .slider {
+     width: 100%;
+     height: 750px;
+     display: flex;
+ }
+
+ .slide {
+     flex: 0 0 100%;
+ }
+
+ .slide img {
+     width: 100%;
+     height: auto;
+ }
+
+ .dots-container {
+     position: absolute;
+     bottom: 10px;
+     left: 50%;
+     transform: translateX(-50%);
+     display: flex;
+ }
+
+ .dot {
+     width: 12px;
+     height: 12px;
+     border-radius: 50%;
+     background-color: #bbb;
+     margin: 0 5px;
+     cursor: pointer;
+ }
+
+ .dot.active {
+     background-color: #333;
+ } */
+
+ /* 
+   Creator           : Coding's Time
+   Youtube Channel   : https://www.youtube.com/channel/UC6dnKqrImGWqMb9ty1n0Ziw
+   Github Profile    : https://github.com/codingstime
+ */
+
+ /* reset */
+ :root {
+     font-family: "Raleway", sans-serif;
+     font-size: 16px;
+     font-weight: 400;
+ }
+
+ * {
+     margin: 0;
+     box-sizing: border-box;
+ }
+
+ /* carousel */
+ .carousel {
+     position: relative;
+     z-index: 2000;
+ }
+
+ .carousel_inner {
+     width: 100%;
+     overflow: hidden;
+ }
+
+ .carousel_inner::after {
+     content: "";
+     display: block;
+     clear: both;
+ }
+
+ .carousel_item {
+     position: relative;
+     float: left;
+     display: none;
+     width: 100%;
+     margin-right: -100%;
+ }
+
+ /* slide effect */
+ .carousel_item__active,
+ .carousel_item__pos_prev,
+ .carousel_item__pos_next {
+     display: block;
+ }
+
+ .carousel_item__pos_prev {
+     left: -100%;
+ }
+
+ .carousel_item__pos_next {
+     left: 100%;
+ }
+
+ .carousel_item__prev {
+     transform: translateX(100%);
+     transition: transform .5s ease-in-out;
+ }
+
+ .carousel_item__next {
+     transform: translateX(-100%);
+     transition: transform .5s ease-in-out;
+ }
+
+ /* fade effect */
+ .carousel__fade .carousel_item__pos_prev,
+ .carousel__fade .carousel_item__pos_next {
+     left: 0;
+     opacity: 0;
+ }
+
+ .carousel__fade .carousel_item__prev,
+ .carousel__fade .carousel_item__next {
+     transform: none;
+     opacity: 1;
+     transition: opacity .5s ease-in-out;
+ }
+
+ .carousel__fade .carousel_item__active.carousel_item__prev,
+ .carousel__fade .carousel_item__active.carousel_item__next {
+     opacity: 0;
+ }
+
+ /* carousel */
+ .carousel_img {
+     display: block;
+     width: 100%;
+     height: 700px;
+ }
+
+ .carousel_caption {
+     position: absolute;
+     top: 0;
+     left: 0;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     width: 100%;
+     height: 100%;
+     padding: 3rem 4rem;
+     text-align: center;
+     color: #fff;
+     z-index: 1;
+ }
+
+ .carousel_title {
+     font-family: "Montserrat", sans-serif;
+     font-weight: 600;
+ }
+
+ .carousel_description {
+     margin-top: .75rem;
+     line-height: 150%;
+ }
+
+ .carousel_indicator {
+     position: absolute;
+     bottom: 1rem;
+     left: 50%;
+     transform: translateX(-50%);
+     display: flex;
+     flex-direction: row;
+     gap: .5rem;
+     z-index: 1;
+ }
+
+ .carousel_dot {
+     display: block;
+     padding: .25rem;
+     background-color: rgba(255, 255, 255, .25);
+     border: none;
+     border-radius: 50%;
+     cursor: pointer;
+     transition: background-color .5s ease-in-out;
+ }
+
+ .carousel_dot__active {
+     background-color: lightskyblue;
+     cursor: default;
+     pointer-events: none;
+ }
+
+ .carousel_control {
+     position: absolute;
+     top: 0;
+     left: 0;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     width: 100%;
+     height: 100%;
+ }
+
+ .carousel_button {
+     display: block;
+     padding-inline: 1rem;
+     font-family: "Raleway", sans-serif;
+     font-size: 1.375rem;
+     background-color: transparent;
+     color: rgba(255, 255, 255, .25);
+     border: none;
+     cursor: pointer;
+     transition: color .25s;
+     z-index: 1;
+ }
+
+ .carousel_button:hover {
+     color: rgba(135, 206, 250, .75);
+ }
+
+ .container {
+    width: 80%;
+ }
+
+ 
+ /*card*/
+
+ .card-container {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-between;
+     align-content: flex-start;
+     max-width: 80%;
+     margin: 0 auto;
+     padding: 20px;
+ }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+ .card {
+    position: relative; /* Para posicionar el botón correctamente */
+     width: 279.37px;
+     height: 383.65px;
+     /* 4 tarjetas en horizontal */
+     background-color: #ffffff;
+     border: 1px solid #e0e0e0;
+     border-radius: 10px;
+     margin-bottom: 20px;
+     box-sizing: border-box;
+     overflow: hidden;
+     transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+ }
+
+ .like-button {
+     position: absolute;
+     top: 10px;
+     right: 10px;
+     cursor: pointer;
+     transition: color 0.3s;
+ }
+
+ .like-icon {
+     background-color: #f2f2f2;
+     /* Fondo gris */
+     padding: 8px;
+     /* Ajusta el tamaño del cuadrado */
+     border-radius: 5px;
+     /* Bordes redondeados */
+     display: inline-block;
+ }
+
+ .like-icon.liked {
+     background-color: #ffffff;
+     /* Cambia el color al hacer clic */
+     color: #ff5050;
+     /* Cambia el color del ícono */
+ }
+
+ .like-button:hover .like-icon {
+     background-color: #ffeded;
+     /* Cambiar el color al pasar el cursor */
+ }
+
+ .card:hover .like-button {
+     color: #ff5050;
+     /* Cambiar el color al pasar el cursor */
+ }
+
+ .card img {
+     width: 100%;
+     height: 300px;
+     object-fit: cover;
+ }
+
+ .card-content {
+     padding: 20px;
+ }
+
+
+ .card p {
+     margin: 0;
+     font-size: 14.6px;
+     color: #555555;
+ }
+
+ 
+
+ .card .price {
+     font-weight: bold;
+     font-size: 10.95px;
+     margin-top: 10px;
+     color: #007bff;
+ }
+ /* Estilos adicionales para dispositivos móviles */
+/*  @media (max-width: 768px) {
+     .card {
+         width: calc(50% - 20px);
+         /* 2 tarjetas en horizontal */
+  /*   }
+ } 
+ */
