@@ -123,6 +123,7 @@
         </div>
     </div>
 
+    
     <div class="flex items-center justify-center">
         <div class="w-4/5 p-3">
             <div class="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 m-3 mt-3">
@@ -391,29 +392,34 @@
     </script>
 
     <script>
-    let resizeTimer;
-window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-        const menuRight = document.getElementById('menu-right');
-        const iconosMenuLateral = document.getElementById('iconos-menu-lateral');
+        function moverIconos() {
+    const menuRight = document.getElementById('menu-right');
+    const iconosMenuLateral = document.getElementById('iconos-menu-lateral');
 
-        // Verifica si los íconos están ocultos
-        if (window.getComputedStyle(menuRight).display === 'none') {
-            // Si los íconos están ocultos y el menú lateral no tiene íconos, los mueve al menú lateral
-            if (iconosMenuLateral.children.length === 0) {
-                const iconos = menuRight.children;
-                for (let i = 0; i < iconos.length; i++) {
-                    iconosMenuLateral.appendChild(iconos[i].cloneNode(true));
-                }
-            }
-        } else {
-            // Si los íconos no están ocultos, los elimina del menú lateral
-            while (iconosMenuLateral.firstChild) {
-                iconosMenuLateral.removeChild(iconosMenuLateral.firstChild);
+    // Verifica si los íconos del menú están ocultos
+    if (menuRight.offsetWidth === 0) {
+        // Si los íconos del menú están ocultos y el menú lateral no tiene íconos, los mueve al menú lateral
+        if (iconosMenuLateral.children.length === 0) {
+            const iconos = menuRight.children;
+            for (let i = 0; i < iconos.length; i++) {
+                iconosMenuLateral.appendChild(iconos[i].cloneNode(true));
             }
         }
-    }, 250); // Retrasa la ejecución del código 250ms después de que se complete el redimensionamiento
+    } else {
+        // Si los íconos del menú no están ocultos, los elimina del menú lateral
+        while (iconosMenuLateral.firstChild) {
+            iconosMenuLateral.removeChild(iconosMenuLateral.firstChild);
+            iconosMenuLateral.style.padding = "20px";
+        }
+    }
+}
+
+let resizeTimer; // Agrega esta línea
+
+window.addEventListener('load', moverIconos);
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(moverIconos, 50); // Retrasa la ejecución del código 50ms después de que se complete el redimensionamiento
 });
     </script>
     <script src="{{ asset('js/main.js') }}"></script>

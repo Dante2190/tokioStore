@@ -11,7 +11,7 @@
      justify-content: space-between;
      color: #090909;
      padding: 10px 20px;
-     position: fixed;
+     position: absolute;
      z-index: 3000;
  }
 
@@ -99,11 +99,14 @@
  }
 
  #iconos-menu-lateral{
+    width: 200px;
+    height: 180px;
     display: flex;
     flex-direction: column;
-    line-height: 20px;
+    justify-content: space-between;
     margin-top: 15px;
-    margin-left: 25px;
+    margin-left: 17px;
+    padding: 15px;
  }
 
 
@@ -395,9 +398,10 @@
  }
 
  .card img {
-     width: 100%;
+     width: 80%;
      height: 300px;
      object-fit: cover;
+     margin: 0 auto;
  }
 
  .card-content {

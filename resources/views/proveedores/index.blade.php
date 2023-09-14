@@ -53,7 +53,7 @@
                         </a>
                     </div>
                     <div class="bg-white shadow-md rounded my-6">
-                        <table class="w-full table-auto">
+                        <table id="tabla-marcas" class="w-full table-auto">
                             <thead>
                                 <tr class="bg-gray-200 text-gray-700">
                                     <th class="px-4 py-2">#</th>
@@ -101,3 +101,34 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+    $(document).ready(function() {
+        $('#tabla-marcas').DataTable({
+            paging: true, // Habilita la paginación
+            searching: true, // Habilita la búsqueda
+            language: {
+                // Personaliza los textos de la tabla
+                paginate: {
+                    first: 'Primero',
+                    last: 'Último',
+                    next: 'Siguiente',
+                    previous: 'Anterior'
+                },
+                search: 'Buscar:',
+                lengthMenu: 'Mostrar _MENU_ registros por página',
+                info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+                infoEmpty: 'Mostrando 0 a 0 de 0 registros',
+                infoFiltered: '(filtrado de _MAX_ registros en total)'
+            },
+            // Agrega estilos personalizados
+           
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            "columnDefs": [
+                { "className": "text-center", "targets": "_all" },
+                { "orderable": false, "targets": [3] }
+            ]
+        });
+
+       
+    });
+</script>

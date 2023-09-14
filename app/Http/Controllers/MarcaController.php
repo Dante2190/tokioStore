@@ -12,7 +12,7 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        $marcas['marcas']=Marca::paginate(10);
+        $marcas['marcas']=Marca::all();
 
         return view("marcas.index", $marcas);
     }
